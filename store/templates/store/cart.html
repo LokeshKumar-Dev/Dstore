@@ -1,0 +1,77 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+	<!-- slider Area Start-->
+  <div class="slider-area ">
+    <!-- Mobile Menu -->
+    <div class="single-slider slider-height2 d-flex align-items-center" data-background="{% static 'images/cart-2.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap text-center">
+                        <h2 style="color:#057abb;font-size:8rem">Cart</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-- slider Area End-->
+
+  <!--================Cart Area =================-->
+  <section class="cart_area section_padding">
+    <div class="container">
+      <div class="cart_inner">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+
+							{% for item in items %}
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="d-flex">
+                      <img src="{{item.product.imageURL}}" alt="" />
+                    </div>
+                    <div class="media-body">
+                      <p>{{item.product.name}}</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <h5>₹{{item.product.price|floatformat:2}}</h5>
+                </td>
+                <td>
+                  <div class="product_count">
+										<p class="quantity">{{item.quantity}}</p>
+										<div class="quantity">
+											<img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static 'images/arrow-up.png' %}">
+
+											<img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static 'images/arrow-down.png' %}">
+										</div>
+                  </div>
+                </td>
+                <td>
+                  <h5>₹{{item.get_total|floatformat:2}}</h5>
+                </td>
+              </tr>
+							{% endfor %}
+            </tbody>
+          </table>
+          <div class="checkout_btn_inner float-right">
+            <a class="btn_1" href="{% url 'store' %}">Continue Shopping</a>
+            <a class="btn_1 checkout_btn_1" href="{% url 'checkout' %}">Proceed to checkout</a>
+          </div>
+        </div>
+      </div>
+  </section>
+  <!--================End Cart Area =================-->
+{% endblock content %}
